@@ -1,14 +1,17 @@
 package com.digitalbook.Service;
 
-import com.digitalbook.Model.Book;
-import com.digitalbook.Repository.BookRepository;
-import com.digitalbook.exception.NoSuchBookExistsException;
+
+
 
 import java.util.List;
 
+import com.digitalbook.Repository.BookRepository;
+import com.digitalbook.exception.NoSuchBookExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+
+import  com.digitalbook.Model.Book;
 
 @Service
 public class BookService {
@@ -43,7 +46,7 @@ public class BookService {
 			System.out.println("Object of Book :" + previousBook);
 			Book updatedBook=bookRepository.save(book);
 			
-			kafkaTemplate.send("author-bookupdate-topic", updatedBook.toString());
+			kafkaTemplate.send("author-bookupdate-topic", updatedBook.getId().toString());
 			
 			return updatedBook;
 
@@ -56,5 +59,9 @@ public class BookService {
 			throw new NoSuchBookExistsException("There is no Book available for : " + category);
 		}
 		return books;
+	}
+
+	public Book getBookById(Long bookId){
+		return  bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Error: Book is not found."));
 	}
 }
