@@ -19,4 +19,7 @@ public interface  BookRestConsumer {
 			@PathVariable(name = "price") float price, @PathVariable(name = "authorName") String authorName,
 			@PathVariable(name = "publisher") String publisher);
 
+	@GetMapping("/api/v1/digitalbook/book/{bookID}/")
+	public ResponseEntity<BookResponse> getBookById(@PathVariable("bookID") Long bookID);
+
 }

@@ -3,6 +3,7 @@ package com.digitalbook.controler;
 import java.io.IOException;
 import java.util.List;
 
+import com.digitalbook.modal.SubscribtionBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.digitalbook.modal.Book;
 import com.digitalbook.modal.ReaderPaymentInfo;
 import com.digitalbook.response.BookResponse;
 import com.digitalbook.service.BookRestConsumer;
@@ -39,12 +38,12 @@ public class ReaderController {
 
 
 	@PostMapping("/books/buy")
-	public ResponseEntity<String> saveBook(@RequestParam String userName, @RequestParam String email, @RequestParam String tittle,
+	public ResponseEntity<String> saveBook(@RequestParam String userName, @RequestParam String email, @RequestParam Long bookId,@RequestParam String tittle,
 			@RequestParam String category, @RequestParam float price, @RequestParam String authorName,
 			@RequestParam String publisher, @RequestParam String publisherDate, @RequestParam boolean active,
 			@RequestParam String content) throws IOException  {
-		Book bookdto = new Book();
-		
+		SubscribtionBook bookdto = new SubscribtionBook();
+		bookdto.setBookId(bookId);
 		bookdto.setTittle(tittle);
 		bookdto.setCategory(category);
 		bookdto.setPrice(price);

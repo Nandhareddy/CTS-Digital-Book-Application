@@ -6,13 +6,15 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name = "book")
-public class Book implements Serializable{
+@Table(name = "subscribtion_book")
+public class SubscribtionBook implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
+	private  Long bookId;
 	private String tittle;
 	private String category;
 	private float price;
@@ -24,8 +26,9 @@ public class Book implements Serializable{
 
 
 
-	public Book(String tittle, String category, float price, String authorName, String publisher, String publishedDate,
+	public SubscribtionBook(Long bookId,String tittle, String category, float price, String authorName, String publisher, String publishedDate,
 			String content, boolean active) {
+		this.bookId=bookId;
 		this.tittle = tittle;
 		this.category = category;
 		this.price = price;
@@ -37,7 +40,7 @@ public class Book implements Serializable{
 		
 	}
 
-	public Book() {
+	public SubscribtionBook() {
 		super();
 	}
 
@@ -47,6 +50,14 @@ public class Book implements Serializable{
 
 	public Long getId() {
 		return id;
+	}
+
+	public Long getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(Long bookId) {
+		this.bookId = bookId;
 	}
 
 	public String getTittle() {
@@ -114,14 +125,19 @@ public class Book implements Serializable{
 	}
 
 
-
-
-
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", tittle=" + tittle + ", category=" + category + ", price=" + price + ", authorName="
-				+ authorName + ", publisher=" + publisher + ", publishedDate=" + publishedDate + ", content=" + content
-				+ ", active=" + active + " , authorDetails=" + "]";
+		return "SubscribtionBook{" +
+				"id=" + id +
+				", bookId=" + bookId +
+				", tittle='" + tittle + '\'' +
+				", category='" + category + '\'' +
+				", price=" + price +
+				", authorName='" + authorName + '\'' +
+				", publisher='" + publisher + '\'' +
+				", publishedDate='" + publishedDate + '\'' +
+				", content='" + content + '\'' +
+				", active=" + active +
+				'}';
 	}
-	
 }

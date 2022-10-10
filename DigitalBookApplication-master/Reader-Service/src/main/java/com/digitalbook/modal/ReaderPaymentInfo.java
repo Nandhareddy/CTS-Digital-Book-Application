@@ -1,15 +1,11 @@
 package com.digitalbook.modal;
 
+import org.hibernate.annotations.Type;
+
 import java.io.Serializable;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "reader_pyment_info")
@@ -17,37 +13,38 @@ public class ReaderPaymentInfo implements Serializable{
 	
 	
 	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	private String readerName;
 	private String readerEmail;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "book_id", referencedColumnName = "id")
-	private Book book;
+	@JoinColumn(name = "subscribtion_book", referencedColumnName = "id")
+	private SubscribtionBook book;
 	
 	public ReaderPaymentInfo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ReaderPaymentInfo(UUID id, String readerName, String readerEmail ,Book book ) {
+	public ReaderPaymentInfo(Long id, String readerName, String readerEmail ,SubscribtionBook book ) {
 		super();
 		this.id = id;
 		this.readerName = readerName;
 		this.readerEmail = readerEmail;
 		this.book=book;
 	}
-	public ReaderPaymentInfo(String readerName, String readerEmail,Book book) {
+	public ReaderPaymentInfo(String readerName, String readerEmail,SubscribtionBook book) {
 		super();
 		this.readerName = readerName;
 		this.readerEmail = readerEmail;
 		this.book=book;
 	}
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getReaderName() {
@@ -63,10 +60,10 @@ public class ReaderPaymentInfo implements Serializable{
 		this.readerEmail = readerEmail;
 	}
 	
-	public Book getBook() {
+	public SubscribtionBook getBook() {
 		return book;
 	}
-	public void setBook(Book book) {
+	public void setBook(SubscribtionBook book) {
 		this.book = book;
 	}
 	@Override
